@@ -1,0 +1,27 @@
+.pagination {
+  position: absolute;
+  top: calc(100vh - 80px);
+  left: 60px;
+}
+
+.pagination button {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+  border-radius: 50%;
+  background-color: inherit;
+  border: 0;
+  font-size: 14px;
+}
+
+.pagination button:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.pagination button:active{
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
