@@ -51,7 +51,7 @@ export const Filters = ({ initialYearRange, onFilterChange }: FiltersProps) => {
     onFilterChange({ yearRange: state.year as [number, number] });
   }, [state.year, onFilterChange]);
 
-  const handleYearChange = (e: Event, newValue: number | number[]) => {
+  const handleYearChange = (e: Event, newValue: number[]) => {
     e.preventDefault();
     dispatch({ type: "SET_YEAR", payload: newValue as number[] });
   };

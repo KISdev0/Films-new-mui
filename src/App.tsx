@@ -54,6 +54,7 @@ function App() {
       (movie) => movie.year >= minYear && movie.year <= maxYear
     );
     setFilteredMovies(filtered);
+    setCurrentPage(1)
   }, [filters, movies]);
 
   const totalPages = Math.ceil(filteredMovies.length / MOVIES_ON_PAGE);
