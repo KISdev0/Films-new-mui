@@ -1,8 +1,23 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .mainPage{
   display: flex;
+}
+
+.moviesContainer {
+  width: 100%;
+  overflow: hidden;
+}
+
+.moviesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1200px;
 }

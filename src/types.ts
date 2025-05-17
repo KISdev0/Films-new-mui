@@ -48,8 +48,28 @@ export interface MovieCardProps {
 }
 
 export interface MovieProps {
-  id: string;
+  id: number;
   title: string;
   posterUrl: string;
-  rating: number;
+  year: number;
+}
+
+export interface ApiMovie {
+  id: number;
+  nameRU: string;
+  year: string;
+  image: {
+    url: string;
+  };
+}
+
+export interface FiltersProps {
+  initialYearRange: [number, number];
+  onFilterChange: (filters: { yearRange: [number, number] }) => void;
+}
+
+export interface PaginationProps {
+  currentPage: number;
+  totalPages: number;
+  onPageChange: (page: number) => void;
 }

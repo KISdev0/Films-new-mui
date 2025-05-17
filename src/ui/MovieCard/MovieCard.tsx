@@ -61,7 +61,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
           {movie.title}
         </Typography>
         <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-          Рейтинг: {movie.rating.toFixed(1)}
+          Год: {movie.year}
         </Typography>
       </Box>
     </Card>

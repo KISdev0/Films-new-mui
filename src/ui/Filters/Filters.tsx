@@ -1,9 +1,9 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import Select from "../Select/Select";
 import styles from "./Filters.module.css";
 import { FILTER_OPTIONS } from "../../consts";
 import { Autocomplete, Box, Paper, Slider, TextField } from "@mui/material";
-import { ActionType, StateType } from "../../types";
+import { ActionType, FiltersProps, StateType } from "../../types";
 
 const initialState: StateType = {
   sortBy: "",
@@ -29,8 +29,11 @@ const filterReducer = (state: StateType, action: ActionType) => {
   }
 };
 
-export const Filters = () => {
-  const [state, dispatch] = useReducer(filterReducer, initialState);
+export const Filters = ({ initialYearRange, onFilterChange }: FiltersProps) => {
+  const [state, dispatch] = useReducer(filterReducer, {
+    ...initialState,
+    year: initialYearRange,
+  });
 
   const handleChangeGenre = (
     event: React.SyntheticEvent,
@@ -43,6 +46,10 @@ export const Filters = () => {
   const handleResetFilters = () => {
     dispatch({ type: "RESET-FILTERS" });
   };
+
+  useEffect(() => {
+    onFilterChange({ yearRange: state.year as [number, number] });
+  }, [state.year, onFilterChange]);
 
   const handleYearChange = (e: Event, newValue: number | number[]) => {
     e.preventDefault();
