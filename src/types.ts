@@ -52,6 +52,9 @@ export interface MovieProps {
   title: string;
   posterUrl: string;
   year: number;
+  description?: string;
+  duration?: number;
+  country?: string;
 }
 
 export interface ApiMovie {
@@ -72,4 +75,8 @@ export interface PaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+}
+
+export interface NewFilterProps{
+  yearRange: [number, number]
 }

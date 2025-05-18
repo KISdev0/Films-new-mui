@@ -4,18 +4,20 @@
   margin-right: auto;
   left: 0;
   right: 0;
-  height: 200px;
-  width: 200px;
+  height: 300px;
+  width: 300px;
   margin: 2rem auto;
   padding: 2rem;
   border: 1px solid #ddd;
   border-radius: 8px;
   background: rgb(190, 190, 190);
+  z-index: 2;
 }
 
 .authForm label {
   display: block;
   margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .authForm input {
@@ -38,7 +40,7 @@
 
 .btnClose {
   font-size: 18px;
-  margin-left: 120px;
+  margin-left: 160px;
   background-color: inherit;
   border: none;
   outline: none;

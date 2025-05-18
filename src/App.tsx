@@ -4,8 +4,8 @@ import Pagination from "./ui/Pagination/Pagination";
 import styles from "./App.module.css";
 import { AuthProvider } from "./AuthContext";
 import { MovieCard } from "./ui/MovieCard/MovieCard";
-import { useEffect, useState } from "react";
-import { ApiMovie, MovieProps } from "./types";
+import { useCallback, useEffect, useState } from "react";
+import { ApiMovie, MovieProps, NewFilterProps } from "./types";
 import { MOVIES_ON_PAGE } from "./consts";
 
 function App() {
@@ -54,7 +54,7 @@ function App() {
       (movie) => movie.year >= minYear && movie.year <= maxYear
     );
     setFilteredMovies(filtered);
-    setCurrentPage(1)
+    setCurrentPage(1);
   }, [filters, movies]);
 
   const totalPages = Math.ceil(filteredMovies.length / MOVIES_ON_PAGE);
@@ -62,6 +62,17 @@ function App() {
   const paginatedMovies = filteredMovies.slice(
     startIndex,
     startIndex + MOVIES_ON_PAGE
+  );
+
+  const handleChangeFilter = useCallback(
+    (newFilters: NewFilterProps) =>
+      setFilters((prev) =>
+        prev.yearRange[0] === newFilters.yearRange[0] &&
+        prev.yearRange[1] === newFilters.yearRange[1]
+          ? prev
+          : newFilters
+      ),
+    []
   );
 
   return (
@@ -72,7 +83,7 @@ function App() {
           <div>
             <Filters
               initialYearRange={filters.yearRange}
-              onFilterChange={(newFilters) => setFilters(newFilters)}
+              onFilterChange={handleChangeFilter}
             />
             <Pagination
               currentPage={currentPage}
