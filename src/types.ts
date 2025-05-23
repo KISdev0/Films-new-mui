@@ -16,6 +16,11 @@ export interface LoginFormProps {
   onClose: () => void;
 }
 
+export interface LoginFormTokenProps {
+  onClose: () => void;
+  onLogin: (token: string) => void;
+}
+
 export interface SelectProps {
   label: string;
   options: string[];
@@ -27,7 +32,7 @@ export interface SelectProps {
 
 export interface UserData {
   id?: number;
-  username: string;
+  username?: string;
   email?: string;
 }
 
@@ -38,7 +43,7 @@ export type AuthProviderProps = {
 export interface AuthContextType {
   user: UserData | null;
   isAuth: boolean;
-  login: (userData: UserData, token: string) => void;
+  login: (userData: UserData, token: string) => Promise<boolean>;
   logout: () => void;
   token: string | null;
 }
@@ -77,6 +82,6 @@ export interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-export interface NewFilterProps{
-  yearRange: [number, number]
+export interface NewFilterProps {
+  yearRange: [number, number];
 }

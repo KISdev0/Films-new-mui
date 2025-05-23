@@ -1,3 +1,5 @@
+import { NewFilterProps } from "./types";
+
 export const FILTER_OPTIONS = {
   sortOptions: ["Популярности", "Дате выхода", "Рейтингу"],
   yearOptions: ["2020", "2019", "2018"],
@@ -5,3 +7,7 @@ export const FILTER_OPTIONS = {
 };
 
 export const MOVIES_ON_PAGE = 10;
+
+export const INITIAL_FILTERS_RANGE: NewFilterProps = {
+  yearRange: [1950, new Date().getFullYear()],
+};

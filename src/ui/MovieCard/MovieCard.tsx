@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Card, CardMedia, IconButton, Typography, Box } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { MovieCardProps } from "../../types";
@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   const navigate = useNavigate();
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     navigate(`/movies/${movie.id}`);
-  };
+  }, [movie.id, navigate]);
+
   return (
     <Card
       onClick={handleClick}

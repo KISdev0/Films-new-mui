@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import styles from "./Header.module.css";
 import { AuthContext } from "../../AuthContext";
-import { LoginForm } from "../LoginForm/LoginForm";
+import { LoginFormToken } from "../LoginForm/LoginFormToken";
 
 export const Header = () => {
-  const { isAuth, logout } = useContext(AuthContext);
+  const { isAuth, logout, login } = useContext(AuthContext);
   const [showLoginForm, setShowLoginForm] = useState(false);
   return (
     <header className={styles.header}>
@@ -18,7 +18,10 @@ export const Header = () => {
             Войти
           </button>
           {showLoginForm && (
-            <LoginForm onClose={() => setShowLoginForm(false)} />
+            <LoginFormToken
+              onLogin={(token) => login({ email: "user@example.com" }, token)}
+              onClose={() => setShowLoginForm(false)}
+            />
           )}
         </div>
       ) : (

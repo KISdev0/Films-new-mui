@@ -1,40 +1,11 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { MovieProps } from "../../types";
+import { useNavigate } from "react-router-dom";
 import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { useRequetsMovieDetails } from "../../hooks/useRequetsMovieDetails";
 
 export const MovieDetails = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
-  const [movie, setMovie] = useState<MovieProps>();
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const requetsMovieDetails = async () => {
-      try {
-        const response = await fetch(
-          `https://api.nomoreparties.co/beatfilm-movies/${id}`
-        );
-        const data = await response.json();
-
-        setMovie({
-          id: data.id,
-          title: data.nameRU,
-          posterUrl: `https://api.nomoreparties.co${data.image.url}`,
-          year: +data.year,
-          description: data.description,
-          duration: data.duration,
-          country: data.country,
-        });
-      } catch (error) {
-        console.error("Ошибка:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    requetsMovieDetails();
-  }, [id]);
+  const { movie, loading } = useRequetsMovieDetails();
 
   if (loading) return <div>Загрузка...</div>;
   if (!movie) return <div>Упс, фильма нет</div>;
