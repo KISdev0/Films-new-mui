@@ -2,12 +2,13 @@ import { Filters } from "./ui/Filters/Filters";
 import { Header } from "./ui/Header/Header";
 import Pagination from "./ui/Pagination/Pagination";
 import styles from "./App.module.css";
-import { AuthContext, AuthProvider } from "./AuthContext";
+import { AuthContext, AuthProvider } from "./Context/AuthContext";
 import { MovieCard } from "./ui/MovieCard/MovieCard";
 import { useContext } from "react";
 import { useRequestMovies } from "./hooks/useRequestMovies";
 import { useFilteredMovies } from "./hooks/useFilteredMovies";
 import { useChangeFilter } from "./hooks/useChangeFilter";
+import { FavoriteProvider } from "./Context/FavoriteContext";
 
 function AppContent() {
   const { movies, loading, error } = useRequestMovies();
@@ -50,7 +51,9 @@ function AppContent() {
 function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <FavoriteProvider>
+        <AppContent />
+      </FavoriteProvider>
     </AuthProvider>
   );
 }

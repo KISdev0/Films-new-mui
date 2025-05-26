@@ -3,12 +3,24 @@ import { Card, CardMedia, IconButton, Typography, Box } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { MovieCardProps } from "../../types";
 import { useNavigate } from "react-router-dom";
+import { useFavorite } from "../../hooks/useFavorite";
 
 export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+  const { favorite, toggleFavorite } = useFavorite();
   const navigate = useNavigate();
   const handleClick = useCallback(() => {
     navigate(`/movies/${movie.id}`);
   }, [movie.id, navigate]);
+
+  const handleToggleFavorite = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      toggleFavorite(movie.id);
+    },
+    [movie.id, toggleFavorite]
+  );
+
+  const isFavorite = favorite.includes(movie.id);
 
   return (
     <Card
@@ -29,6 +41,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     >
       <IconButton
         aria-label="toggle favorite"
+        onClick={handleToggleFavorite}
         sx={{
           position: "absolute",
           top: 240,
@@ -38,7 +51,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
       >
         <FavoriteIcon
           sx={{
-            color: "rgb(33, 139, 226)",
+            color: isFavorite ? "rgb(219, 198, 6)" : "rgb(33, 139, 226)",
             "&:hover": { color: "rgb(219, 198, 6)" },
           }}
         />

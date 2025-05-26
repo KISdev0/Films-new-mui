@@ -92,3 +92,8 @@ export interface useFilteredMoviesProps {
   totalPages: number;
   paginatedMovies: MovieProps[];
 }
+
+export interface FavoriteContextProps {
+  favorite: number[];
+  toggleFavorite: (movieId: number) => void;
+}

@@ -1,5 +1,5 @@
 import { FormEvent, useContext, useState } from "react";
-import { AuthContext } from "../../AuthContext";
+import { AuthContext } from "../../Context/AuthContext";
 import styles from "./LoginForm.module.css";
 import { LoginFormProps } from "../../types";
 
