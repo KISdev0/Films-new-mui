@@ -4,13 +4,17 @@ import { ApiMovie, MovieProps } from "../types";
 export const useRequestMovies = () => {
   const [movies, setMovies] = useState<MovieProps[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string|null>(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
+    const { signal } = abortController;
+
     const requestMovies = async () => {
       try {
         const response = await fetch(
-          "https://api.nomoreparties.co/beatfilm-movies"
+          "https://api.nomoreparties.co/beatfilm-movies",
+          { signal }
         );
         if (!response.ok) {
           throw new Error("Ошибка загрузки фильмов");
@@ -27,12 +31,19 @@ export const useRequestMovies = () => {
 
         setMovies(transformedData);
       } catch (err) {
-        setError((err as Error).message);
+        if (!signal.aborted) {
+          setError((err as Error).message);
+        }
       } finally {
-        setLoading(false);
+        if (!signal.aborted) {
+          setLoading(false);
+        }
       }
     };
     requestMovies();
+    return () => {
+      abortController.abort();
+    };
   }, []);
   return { movies, loading, error };
 };

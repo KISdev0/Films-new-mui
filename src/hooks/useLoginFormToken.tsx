@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { LoginFormTokenProps } from "../types";
+import { EMAIL_REGEX } from "../consts";
 
 export const useLoginFormToken = ({
   onClose,
@@ -11,16 +12,16 @@ export const useLoginFormToken = ({
   const [step, setStep] = useState<"request" | "verify">("request");
   const [loading, setLoading] = useState(false);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setEmail("");
     setToken("");
     setErrors("");
     setStep("request");
-  };
+  }, []);
 
-  const handleRequestToken = async () => {
-    if (!email.trim()) {
-      setErrors("Введите email");
+  const handleRequestToken = useCallback(async () => {
+    if (!email.trim() || !EMAIL_REGEX.test(email.trim())) {
+      setErrors("Введите корректный email");
       return;
     }
     setLoading(true);
@@ -34,16 +35,16 @@ export const useLoginFormToken = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [email]);
 
-  const handleVerifyToken = () => {
+  const handleVerifyToken = useCallback(() => {
     if (!token.trim()) {
       setErrors("Введите токен");
       return;
     }
     onLogin(token);
     onClose();
-  };
+  }, [token, onLogin, onClose]);
 
   return {
     email,

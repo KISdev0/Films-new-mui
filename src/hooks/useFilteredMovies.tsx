@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { MovieProps, NewFilterProps } from "../types";
+import { MovieProps, NewFilterProps, useFilteredMoviesProps } from "../types";
 import { MOVIES_ON_PAGE } from "../consts";
 
 export const useFilteredMovies = (
   movies: MovieProps[],
   filters: NewFilterProps
-) => {
+): useFilteredMoviesProps => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredMovies, setFilteredMovies] = useState<MovieProps[]>([]);
 

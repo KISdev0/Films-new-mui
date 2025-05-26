@@ -11,3 +11,6 @@ export const MOVIES_ON_PAGE = 10;
 export const INITIAL_FILTERS_RANGE: NewFilterProps = {
   yearRange: [1950, new Date().getFullYear()],
 };
+
+export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+export const MAX_VISIBLE_PAGES = 5

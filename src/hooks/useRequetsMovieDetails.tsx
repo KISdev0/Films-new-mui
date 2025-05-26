@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { MovieProps } from "../types";
-import { useParams } from "react-router-dom";
 
-export const useRequetsMovieDetails = () => {
-  const { id } = useParams();
+export const useRequetsMovieDetails = (id: string | undefined) => {
   const [movie, setMovie] = useState<MovieProps>();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const requetsMovieDetails = async () => {
@@ -24,8 +23,9 @@ export const useRequetsMovieDetails = () => {
           duration: data.duration,
           country: data.country,
         });
-      } catch (error) {
-        console.error("Ошибка:", error);
+      } catch (err) {
+        setError((err as Error).message);
+        console.error("Ошибка:", err);
       } finally {
         setLoading(false);
       }
@@ -33,5 +33,5 @@ export const useRequetsMovieDetails = () => {
     requetsMovieDetails();
   }, [id]);
 
-  return { movie, loading };
+  return { movie, loading, error };
 };

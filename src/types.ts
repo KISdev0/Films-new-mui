@@ -85,3 +85,10 @@ export interface PaginationProps {
 export interface NewFilterProps {
   yearRange: [number, number];
 }
+
+export interface useFilteredMoviesProps {
+  currentPage: number;
+  setCurrentPage: (page: number) => void;
+  totalPages: number;
+  paginatedMovies: MovieProps[];
+}

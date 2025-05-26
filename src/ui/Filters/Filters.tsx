@@ -65,7 +65,7 @@ export const Filters = React.memo(
           p: 3,
           borderRadius: 2,
           width: "100%",
-          maxWidth: 350,
+          maxWidth: 400,
           bgcolor: "background.paper",
         }}
       >
