@@ -1,0 +1,36 @@
+import { useContext, useState } from "react";
+import styles from "./Header.module.css";
+import { AuthContext } from "../../AuthContext";
+import { LoginFormToken } from "../LoginForm/LoginFormToken";
+
+export const Header = () => {
+  const { isAuth, logout, login } = useContext(AuthContext);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+  return (
+    <header className={styles.header}>
+      <p>Фильмы</p>
+      {!isAuth ? (
+        <div>
+          <button
+            className={styles.headerButton}
+            onClick={() => setShowLoginForm(true)}
+          >
+            Войти
+          </button>
+          {showLoginForm && (
+            <LoginFormToken
+              onLogin={(token) => login({ email: "user@example.com" }, token)}
+              onClose={() => setShowLoginForm(false)}
+            />
+          )}
+        </div>
+      ) : (
+        <div>
+          <button className={styles.headerButton} onClick={logout}>
+            Выйти
+          </button>
+        </div>
+      )}
+    </header>
+  );
+};

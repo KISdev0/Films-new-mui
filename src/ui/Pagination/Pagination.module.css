@@ -1,0 +1,26 @@
+.pagination {
+  position: absolute;
+  top: calc(100vh - 80px);
+  left: 60px;
+  width: 200px;
+}
+
+.pagination span {
+  margin-top: 7px;
+}
+
+.pagination button {
+  width: 30px;
+  height: 30px;
+  margin: 5px;
+  border-radius: 50%;
+  background-color: inherit;
+  border: 0;
+  font-size: 14px;
+  color: black;
+}
+
+.pagination button:hover {
+  background-color: rgb(24, 163, 255);
+  cursor: pointer;
+}

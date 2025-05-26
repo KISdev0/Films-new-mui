@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid rgb(209, 209, 209);
+  padding: 20px 20px 20px;
+  margin-bottom: 20px;
+}
+
+.headerButton {
+  background-color: inherit;
+  border: 0;
+  outline: 0;
+}
+
+.header button:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+}
