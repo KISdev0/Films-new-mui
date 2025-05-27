@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { MovieProps } from "../types";
 
-export const useRequetsMovieDetails = (id: string | undefined) => {
+export const useRequestMovieDetails = (id: string | undefined) => {
   const [movie, setMovie] = useState<MovieProps>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const requetsMovieDetails = async () => {
+    const requestMovieDetails = async () => {
       try {
         const response = await fetch(
           `https://api.nomoreparties.co/beatfilm-movies/${id}`
@@ -30,7 +30,7 @@ export const useRequetsMovieDetails = (id: string | undefined) => {
         setLoading(false);
       }
     };
-    requetsMovieDetails();
+    requestMovieDetails();
   }, [id]);
 
   return { movie, loading, error };

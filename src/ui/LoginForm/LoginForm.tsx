@@ -1,7 +1,7 @@
-import { FormEvent, useContext, useState } from "react";
-import { AuthContext } from "../../Context/AuthContext";
+import { FormEvent, useState } from "react";
 import styles from "./LoginForm.module.css";
 import { LoginFormProps } from "../../types";
+import { useAuth } from "../../hooks/useAuth";
 
 export const LoginForm = ({ onClose }: LoginFormProps) => {
   const [username, setUsername] = useState<string>("");
@@ -11,7 +11,7 @@ export const LoginForm = ({ onClose }: LoginFormProps) => {
     password?: string;
   }>({});
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

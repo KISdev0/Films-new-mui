@@ -1,4 +1,4 @@
-import { NewFilterProps } from "./types";
+import { FavoriteContextProps, NewFilterProps } from "./types";
 
 export const FILTER_OPTIONS = {
   sortOptions: ["Популярности", "Дате выхода", "Рейтингу"],
@@ -13,4 +13,10 @@ export const INITIAL_FILTERS_RANGE: NewFilterProps = {
 };
 
 export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-export const MAX_VISIBLE_PAGES = 5
+
+export const MAX_VISIBLE_PAGES = 5;
+
+export const DEFAULT_FAVORITE_CONTEXT: FavoriteContextProps = {
+  favorite: [],
+  toggleFavorite: () => console.warn("this is DEFAULT_FAVORITE_CONTEXT"),
+};

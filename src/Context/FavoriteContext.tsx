@@ -1,16 +1,25 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useCallback, useState } from "react";
 import { FavoriteContextProps } from "../types";
+import { DEFAULT_FAVORITE_CONTEXT } from "../consts";
 
-export const FavoriteContext = createContext<FavoriteContextProps | null>(null);
+export const FavoriteContext = createContext<FavoriteContextProps>(
+  DEFAULT_FAVORITE_CONTEXT
+);
+const getSavedFavorite = () => {
+  try {
+    const saved = localStorage.getItem("favorite");
+    return saved ? JSON.parse(saved) : [];
+  } catch (error) {
+    console.error("Ошибка:", error);
+    return [];
+  }
+};
 export const FavoriteProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const saved = localStorage.getItem("favorite");
-  const [favorite, setFavorite] = useState<number[]>(
-    saved ? JSON.parse(saved) : []
-  );
+  const [favorite, setFavorite] = useState<number[]>(getSavedFavorite());
 
-  const toggleFavorite = (movieId: number) => {
+  const toggleFavorite = useCallback((movieId: number) => {
     setFavorite((prev) => {
       const newFavorite = prev.includes(movieId)
         ? prev.filter((id) => id !== movieId)
@@ -19,7 +28,7 @@ export const FavoriteProvider: React.FC<{ children: ReactNode }> = ({
       localStorage.setItem("favorite", JSON.stringify(newFavorite));
       return newFavorite;
     });
-  };
+  }, []);
 
   return (
     <FavoriteContext.Provider value={{ favorite, toggleFavorite }}>

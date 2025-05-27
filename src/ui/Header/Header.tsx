@@ -1,11 +1,11 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import styles from "./Header.module.css";
-import { AuthContext } from "../../Context/AuthContext";
 import { LoginFormToken } from "../LoginForm/LoginFormToken";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Header = () => {
-  const { isAuth, logout, login } = useContext(AuthContext);
+  const { isAuth, logout, login } = useAuth();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const navigate = useNavigate();
   return (

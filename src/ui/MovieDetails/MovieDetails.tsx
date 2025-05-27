@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Avatar, Box, Button, Paper, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { useRequetsMovieDetails } from "../../hooks/useRequetsMovieDetails";
+import { useRequestMovieDetails } from "../../hooks/useRequestMovieDetails";
 
 export const MovieDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { movie, loading } = useRequetsMovieDetails(id);
+  const { movie, loading } = useRequestMovieDetails(id);
 
   if (loading) return <div>Загрузка...</div>;
   if (!movie) return <div>Упс, фильма нет</div>;
