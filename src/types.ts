@@ -99,4 +99,5 @@ export interface useFilteredMoviesProps {
 export interface FavoriteContextProps {
   favorite: number[];
   toggleFavorite: (movieId: number) => void;
+  justAdded?: boolean;
 }

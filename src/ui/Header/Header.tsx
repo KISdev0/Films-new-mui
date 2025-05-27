@@ -3,8 +3,10 @@ import styles from "./Header.module.css";
 import { LoginFormToken } from "../LoginForm/LoginFormToken";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { useFavorite } from "../../hooks/useFavorite";
 
 export const Header = () => {
+  const { justAdded } = useFavorite();
   const { isAuth, logout, login } = useAuth();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const navigate = useNavigate();
@@ -13,7 +15,9 @@ export const Header = () => {
       <p>Фильмы</p>
       {isAuth && (
         <button
-          className={styles.favoriteButton}
+          className={`${styles.favoriteButton} ${
+            justAdded ? styles.favoriteBlink : ""
+          }`}
           onClick={() => navigate("/favorite")}
         >
           Избранное
