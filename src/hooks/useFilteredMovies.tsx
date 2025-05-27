@@ -11,9 +11,15 @@ export const useFilteredMovies = (
 
   useEffect(() => {
     const [minYear, maxYear] = filters.yearRange;
-    const filtered = movies.filter(
-      (movie) => movie.year >= minYear && movie.year <= maxYear
-    );
+    const filtered = movies.filter((movie) => {
+      const yearMatch = movie.year >= minYear && movie.year <= maxYear;
+
+      const titleMatch = filters.search
+        ? movie.title.toLowerCase().includes(filters.search.toLowerCase())
+        : true;
+
+      return yearMatch && titleMatch;
+    });
     setFilteredMovies(filtered);
     setCurrentPage(1);
   }, [filters, movies]);

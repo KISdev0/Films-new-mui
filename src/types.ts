@@ -4,13 +4,15 @@ export interface StateType {
   sortBy: string;
   year: number[];
   selectedGenres: Array<{ title: string }>;
+  search: string;
 }
 
 export type ActionType =
   | { type: "SET_SORT_BY"; payload: string }
   | { type: "SET_YEAR"; payload: number[] }
   | { type: "SET_GENRE"; payload: Array<{ title: string }> }
-  | { type: "RESET-FILTERS" };
+  | { type: "RESET-FILTERS" }
+  | { type: "SET_SEARCH"; payload: string };
 
 export interface LoginFormProps {
   onClose: () => void;
@@ -73,7 +75,7 @@ export interface ApiMovie {
 
 export interface FiltersProps {
   initialYearRange: [number, number];
-  onFilterChange: (filters: { yearRange: [number, number] }) => void;
+  onFilterChange: (filters: NewFilterProps) => void;
 }
 
 export interface PaginationProps {
@@ -84,6 +86,7 @@ export interface PaginationProps {
 
 export interface NewFilterProps {
   yearRange: [number, number];
+  search?: string;
 }
 
 export interface useFilteredMoviesProps {
