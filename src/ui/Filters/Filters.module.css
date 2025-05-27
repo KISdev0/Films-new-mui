@@ -1,0 +1,26 @@
+.filters {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  width: 350px;
+  height: calc(100vh - 150px);
+  margin-left: 10px;
+  padding: 20px 20px 20px;
+}
+
+.header {
+  font-weight: 100;
+  margin-bottom: 20px;
+}
+
+.buttonClose {
+  border: 0;
+  background-color: inherit;
+  margin-left: 72%;
+}
+
+.buttonClose:hover {
+  cursor: pointer;
+  transform: scale(1.4);
+}
