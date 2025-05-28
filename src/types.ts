@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 export interface StateType {
   sortBy: string;
-  year: number[];
+  yearRange: number[];
   selectedGenres: Array<{ title: string }>;
   search: string;
 }
@@ -100,4 +100,6 @@ export interface FavoriteContextProps {
   favorite: number[];
   toggleFavorite: (movieId: number) => void;
   justAdded?: boolean;
+  error?: string | null;
+  clearError?: () => void;
 }

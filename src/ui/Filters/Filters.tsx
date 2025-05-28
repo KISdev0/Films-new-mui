@@ -1,14 +1,14 @@
 import { useEffect, useReducer } from "react";
 import Select from "../Select/Select";
 import styles from "./Filters.module.css";
-import { FILTER_OPTIONS } from "../../consts";
+import { FILTER_OPTIONS, INITIAL_FILTERS } from "../../consts";
 import { Autocomplete, Box, Paper, Slider, TextField } from "@mui/material";
 import { ActionType, FiltersProps, StateType } from "../../types";
 import React from "react";
 
 const initialState: StateType = {
   sortBy: "",
-  year: [1950, new Date().getFullYear()],
+  yearRange: [1950, new Date().getFullYear()],
   selectedGenres: [],
   search: "",
 };
@@ -20,14 +20,14 @@ const filterReducer = (state: StateType, action: ActionType) => {
     case "SET_SORT_BY":
       return { ...state, sortBy: action.payload };
     case "SET_YEAR":
-      return { ...state, year: action.payload };
+      return { ...state, yearRange: action.payload };
     case "SET_GENRE":
       return {
         ...state,
         selectedGenres: action.payload,
       };
     case "RESET-FILTERS":
-      return initialState;
+      return INITIAL_FILTERS;
     default:
       return state;
   }
@@ -37,7 +37,7 @@ export const Filters = React.memo(
   ({ initialYearRange, onFilterChange }: FiltersProps) => {
     const [state, dispatch] = useReducer(filterReducer, {
       ...initialState,
-      year: initialYearRange,
+      yearRange: initialYearRange,
     });
 
     const handleChangeGenre = (
@@ -53,8 +53,8 @@ export const Filters = React.memo(
     };
 
     useEffect(() => {
-      onFilterChange({ yearRange: state.year as [number, number] });
-    }, [state.year, onFilterChange]);
+      onFilterChange({ yearRange: state.yearRange as [number, number] });
+    }, [state.yearRange, onFilterChange]);
 
     const handleYearChange = (e: Event, newValue: number[]) => {
       e.preventDefault();
@@ -69,7 +69,7 @@ export const Filters = React.memo(
       const value = e.target.value;
       dispatch({ type: "SET_SEARCH", payload: value });
       onFilterChange({
-        yearRange: state.year as [number, number],
+        yearRange: state.yearRange as [number, number],
         search: value,
       });
     };
@@ -119,7 +119,7 @@ export const Filters = React.memo(
               <label>Год реллиза</label>
               <Slider
                 getAriaLabel={() => "Год релиза-диапазон"}
-                value={state.year}
+                value={state.yearRange}
                 onChange={handleYearChange}
                 valueLabelDisplay="auto"
                 min={1950}
