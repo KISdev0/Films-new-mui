@@ -10,10 +10,13 @@ const initialState: StateType = {
   sortBy: "",
   year: [1950, new Date().getFullYear()],
   selectedGenres: [],
+  search: "",
 };
 
 const filterReducer = (state: StateType, action: ActionType) => {
   switch (action.type) {
+    case "SET_SEARCH":
+      return { ...state, search: action.payload };
     case "SET_SORT_BY":
       return { ...state, sortBy: action.payload };
     case "SET_YEAR":
@@ -56,6 +59,19 @@ export const Filters = React.memo(
     const handleYearChange = (e: Event, newValue: number[]) => {
       e.preventDefault();
       dispatch({ type: "SET_YEAR", payload: newValue });
+      onFilterChange({
+        yearRange: newValue as [number, number],
+        search: state.search,
+      });
+    };
+
+    const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      dispatch({ type: "SET_SEARCH", payload: value });
+      onFilterChange({
+        yearRange: state.year as [number, number],
+        search: value,
+      });
     };
 
     return (
@@ -76,6 +92,17 @@ export const Filters = React.memo(
               X
             </button>
           </h3>
+
+          <Box sx={{ mb: 3 }}>
+            <TextField
+              fullWidth
+              label="Название фильма"
+              variant="outlined"
+              value={state.search}
+              onChange={handleChangeSearch}
+              placeholder="Введите название фильма"
+            />
+          </Box>
 
           <Select
             value={state.sortBy}
