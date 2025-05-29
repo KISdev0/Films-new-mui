@@ -21,7 +21,13 @@ export const DEFAULT_FAVORITE_CONTEXT: FavoriteContextProps = {
   toggleFavorite: () => console.warn("this is DEFAULT_FAVORITE_CONTEXT"),
 };
 
-export const DEFAULT_AUTH_CONTEXT: AuthContextType = {} as AuthContextType;
+export const DEFAULT_AUTH_CONTEXT: AuthContextType = {
+  user: null,
+  isAuth: false,
+  login: async () => false,
+  logout: () => {},
+  token: null,
+};
 
 export const INITIAL_FILTERS = {
   sortBy: "",

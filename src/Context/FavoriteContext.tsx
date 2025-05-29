@@ -85,7 +85,7 @@ export const FavoriteProvider: React.FC<{ children: ReactNode }> = ({
         toggleFavorite,
         justAdded,
         error,
-        clearError: () => setError(null),
+        clearError: useCallback(() => setError(null), []),
       }}
     >
       {children}
