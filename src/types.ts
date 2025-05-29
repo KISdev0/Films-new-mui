@@ -46,7 +46,7 @@ export interface AuthContextType {
   user: UserData | null;
   isAuth: boolean;
   login: (userData: UserData, token: string) => Promise<boolean>;
-  logout: () => void;
+  logoutHandler: () => void;
   token: string | null;
 }
 

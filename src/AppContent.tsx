@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import { useRequestMovies } from "./hooks/useRequestMovies";
-import { AuthContext } from "./Context/AuthContext";
 import { useChangeFilter } from "./hooks/useChangeFilter";
 import { useFilteredMovies } from "./hooks/useFilteredMovies";
 import { Header } from "./ui/Header/Header";
@@ -8,10 +6,11 @@ import { Filters } from "./ui/Filters/Filters";
 import Pagination from "./ui/Pagination/Pagination";
 import { MovieCard } from "./ui/MovieCard/MovieCard";
 import styles from "./App.module.css";
+import { useAuth } from "./hooks/useAuth";
 
 export function AppContent() {
   const { movies, loading, error } = useRequestMovies();
-  const { isAuth } = useContext(AuthContext);
+  const { isAuth } = useAuth();
   const { handleChangeFilter, filters } = useChangeFilter();
   const { currentPage, setCurrentPage, totalPages, paginatedMovies } =
     useFilteredMovies(movies, filters);

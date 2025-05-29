@@ -7,7 +7,7 @@ import { useFavorite } from "../../hooks/useFavorite";
 
 export const Header = () => {
   const { justAdded } = useFavorite();
-  const { isAuth, logout, login } = useAuth();
+  const { isAuth, logoutHandler, login } = useAuth();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const navigate = useNavigate();
   return (
@@ -40,7 +40,7 @@ export const Header = () => {
         </div>
       ) : (
         <div>
-          <button className={styles.headerButton} onClick={logout}>
+          <button className={styles.headerButton} onClick={logoutHandler}>
             Выйти
           </button>
         </div>
