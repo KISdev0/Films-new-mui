@@ -1,12 +1,23 @@
 import React, { useCallback } from "react";
-import { Card, CardMedia, IconButton, Typography, Box } from "@mui/material";
+import {
+  Card,
+  CardMedia,
+  IconButton,
+  Typography,
+  Box,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { MovieCardProps } from "../../types";
 import { useNavigate } from "react-router-dom";
 import { useFavorite } from "../../hooks/useFavorite";
+import { useSnackbarError } from "../../hooks/useSnackbarError";
 
 export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   const { favorite, toggleFavorite } = useFavorite();
+  const { snackbarMessage, handleCloseSnackbar, snackbarOpen } =
+    useSnackbarError();
   const navigate = useNavigate();
   const handleClick = useCallback(() => {
     navigate(`/movies/${movie.id}`);
@@ -39,6 +50,16 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         },
       }}
     >
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert severity="error" onClose={handleCloseSnackbar}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
       <IconButton
         aria-label="toggle favorite"
         onClick={handleToggleFavorite}

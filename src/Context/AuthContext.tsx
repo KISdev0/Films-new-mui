@@ -1,9 +1,8 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { AuthContextType, AuthProviderProps, UserData } from "../types";
+import { DEFAULT_AUTH_CONTEXT } from "../consts";
 
-export const AuthContext = createContext<AuthContextType>(
-  {} as AuthContextType
-);
+export const AuthContext = createContext<AuthContextType>(DEFAULT_AUTH_CONTEXT)
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<UserData | null>(null);

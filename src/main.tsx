@@ -1,9 +1,9 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { AppRouter } from "./AppRouter.tsx";
+import App from "./App.tsx";
 
 createRoot(document.getElementById("root")!).render(
-<BrowserRouter>
-<AppRouter />
-</BrowserRouter>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
 );

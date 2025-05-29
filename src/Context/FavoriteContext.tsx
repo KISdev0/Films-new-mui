@@ -20,28 +20,54 @@ const getSavedFavorite = () => {
     return [];
   }
 };
+
+const savedFavorite = async (favorite: number[]) => {
+  try {
+    if (Math.random() < 0.3) {
+      throw new Error("Рандом ошибка для теста");
+    }
+    localStorage.setItem("favorite", JSON.stringify(favorite));
+    return true;
+  } catch (err) {
+    console.error("Ошибка:", err);
+    return false;
+  }
+};
+
 export const FavoriteProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [favorite, setFavorite] = useState<number[]>(getSavedFavorite());
   const [justAdded, setJustAdded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const toggleFavorite = useCallback((movieId: number) => {
-    setFavorite((prev) => {
-      const isAdding = !prev.includes(movieId);
+  const toggleFavorite = useCallback(
+    async (movieId: number) => {
+      const isAdding = !favorite.includes(movieId);
       const newFavorite = isAdding
-        ? [...prev, movieId]
-        : prev.filter((id) => id !== movieId);
+        ? [...favorite, movieId]
+        : favorite.filter((id) => id !== movieId);
 
-      localStorage.setItem("favorite", JSON.stringify(newFavorite));
+      setFavorite(newFavorite);
+      setError(null);
 
-      if (isAdding) {
-        setJustAdded(true);
+      try {
+        if (!(await savedFavorite(newFavorite))) {
+          setFavorite(favorite);
+          setError("Рандом ошибка для теста");
+          return;
+        }
+
+        if (isAdding) {
+          setJustAdded(true);
+        }
+      } catch (err) {
+        console.error("Ошибка:", err);
+        setFavorite(favorite);
       }
-
-      return newFavorite;
-    });
-  }, []);
+    },
+    [favorite]
+  );
 
   useEffect(() => {
     if (justAdded) {
@@ -53,7 +79,15 @@ export const FavoriteProvider: React.FC<{ children: ReactNode }> = ({
   }, [justAdded]);
 
   return (
-    <FavoriteContext.Provider value={{ favorite, toggleFavorite, justAdded }}>
+    <FavoriteContext.Provider
+      value={{
+        favorite,
+        toggleFavorite,
+        justAdded,
+        error,
+        clearError: useCallback(() => setError(null), []),
+      }}
+    >
       {children}
     </FavoriteContext.Provider>
   );

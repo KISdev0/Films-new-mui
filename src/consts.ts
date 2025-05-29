@@ -1,4 +1,4 @@
-import { FavoriteContextProps, NewFilterProps } from "./types";
+import { AuthContextType, FavoriteContextProps, NewFilterProps } from "./types";
 
 export const FILTER_OPTIONS = {
   sortOptions: ["Популярности", "Дате выхода", "Рейтингу"],
@@ -19,4 +19,19 @@ export const MAX_VISIBLE_PAGES = 5;
 export const DEFAULT_FAVORITE_CONTEXT: FavoriteContextProps = {
   favorite: [],
   toggleFavorite: () => console.warn("this is DEFAULT_FAVORITE_CONTEXT"),
+};
+
+export const DEFAULT_AUTH_CONTEXT: AuthContextType = {
+  user: null,
+  isAuth: false,
+  login: async () => false,
+  logout: () => {},
+  token: null,
+};
+
+export const INITIAL_FILTERS = {
+  sortBy: "",
+  yearRange: [1950, new Date().getFullYear()] as [number, number],
+  selectedGenres: [] as Array<{ title: string }>,
+  search: "",
 };
