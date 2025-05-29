@@ -1,3 +1,4 @@
+import { AuthState } from "./Redux/types";
 import { AuthContextType, FavoriteContextProps, NewFilterProps } from "./types";
 
 export const FILTER_OPTIONS = {
@@ -25,7 +26,7 @@ export const DEFAULT_AUTH_CONTEXT: AuthContextType = {
   user: null,
   isAuth: false,
   login: async () => false,
-  logout: () => {},
+  logoutHandler: () => {},
   token: null,
 };
 
@@ -34,4 +35,10 @@ export const INITIAL_FILTERS = {
   yearRange: [1950, new Date().getFullYear()] as [number, number],
   selectedGenres: [] as Array<{ title: string }>,
   search: "",
+};
+
+export const INIT_STATE_AUTH_REDUCER: AuthState = {
+  user: null,
+  token: null,
+  isAuth: false,
 };
