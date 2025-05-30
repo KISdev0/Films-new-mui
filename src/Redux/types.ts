@@ -1,29 +1,37 @@
+import { AUTH_ACTION, FAVORITE_ACTION } from "../consts";
 import { UserData } from "../types";
-import { LOGIN_SUCCESS, LOGOUT, INIT_AUTH } from "./Actions/authActions";
-import { rootReducer, store } from "./Store/store";
+
+export interface LoginRequestAction {
+  type: typeof AUTH_ACTION.LOGIN_REQUEST;
+}
 
 export interface LoginSuccessAction {
-  type: typeof LOGIN_SUCCESS;
+  type: typeof AUTH_ACTION.LOGIN_SUCCESS;
   payload: {
     user: UserData;
     token: string;
   };
 }
 
+export interface LoginFailAction {
+  type: typeof AUTH_ACTION.LOGIN_FAIL;
+  payload: string;
+}
+
 export interface LogoutAction {
-  type: typeof LOGOUT;
+  type: typeof AUTH_ACTION.LOGOUT;
 }
 
 export interface InitAuthAction {
-  type: typeof INIT_AUTH;
+  type: typeof AUTH_ACTION.INIT_AUTH;
 }
 
 export type AuthActionTypes =
+  | LoginRequestAction
   | LoginSuccessAction
+  | LoginFailAction
   | LogoutAction
   | InitAuthAction;
-
-export type RootState = ReturnType<typeof rootReducer>;
 
 export interface AuthState {
   user: UserData | null;
@@ -31,4 +39,29 @@ export interface AuthState {
   isAuth: boolean;
 }
 
-export type DispatchType = typeof store.dispatch;
+export interface FavoriteState {
+  favoriteId: number[];
+  justAdded: boolean;
+  error: string | null;
+}
+
+export interface toggleFavoriteSuccessAction {
+  type: typeof FAVORITE_ACTION.TOGGLE_FAVORITE_SUCCESS;
+  payload: { newFavorite: number[]; isAdding: boolean };
+}
+export interface toggleFavoriteFailAction {
+  type: typeof FAVORITE_ACTION.TOGGLE_FAVORITE_FAIL;
+  payload: string;
+}
+export interface clearFustAddedAction {
+  type: typeof FAVORITE_ACTION.CLEAR_JUST_ADDED;
+}
+export interface clearErrorAction {
+  type: typeof FAVORITE_ACTION.CLEAR_ERROR;
+}
+
+export type FavoriteActionTypes =
+  | toggleFavoriteSuccessAction
+  | toggleFavoriteFailAction
+  | clearFustAddedAction
+  | clearErrorAction;

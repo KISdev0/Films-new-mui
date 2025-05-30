@@ -7,7 +7,7 @@ import { useFavorite } from "../../hooks/useFavorite";
 
 export const Header = () => {
   const { justAdded } = useFavorite();
-  const { isAuth, logoutHandler, login } = useAuth();
+  const { isAuth, logoutHandler, loginHandler } = useAuth();
   const [showLoginForm, setShowLoginForm] = useState(false);
   const navigate = useNavigate();
   return (
@@ -33,7 +33,9 @@ export const Header = () => {
           </button>
           {showLoginForm && (
             <LoginFormToken
-              onLogin={(token) => login({ email: "user@example.com" }, token)}
+              onLogin={(token) =>
+                loginHandler({ email: "user@example.com" }, token)
+              }
               onClose={() => setShowLoginForm(false)}
             />
           )}

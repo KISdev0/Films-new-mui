@@ -1,5 +1,4 @@
-import { INIT_STATE_AUTH_REDUCER } from "../../consts";
-import { INIT_AUTH, LOGIN_SUCCESS, LOGOUT } from "../Actions/authActions";
+import { AUTH_ACTION, INIT_STATE_AUTH_REDUCER } from "../../consts";
 import { AuthActionTypes, AuthState } from "../types";
 
 export const authReducer = (
@@ -7,7 +6,7 @@ export const authReducer = (
   action: AuthActionTypes
 ): AuthState => {
   switch (action.type) {
-    case LOGIN_SUCCESS:
+    case AUTH_ACTION.LOGIN_SUCCESS:
       localStorage.setItem("user", JSON.stringify(action.payload.user));
       localStorage.setItem("token", action.payload.token);
       return {
@@ -17,7 +16,7 @@ export const authReducer = (
         user: action.payload.user,
       };
 
-    case LOGOUT:
+    case AUTH_ACTION.LOGOUT:
       localStorage.removeItem("user");
       localStorage.removeItem("token");
       return {
@@ -27,7 +26,7 @@ export const authReducer = (
         user: null,
       };
 
-    case INIT_AUTH: {
+    case AUTH_ACTION.INIT_AUTH: {
       const storedUser = localStorage.getItem("user");
       const storedToken = localStorage.getItem("token");
 

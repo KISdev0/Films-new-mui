@@ -1,22 +1,24 @@
+import { AUTH_ACTION } from "../../consts";
 import { UserData } from "../../types";
 import { AuthActionTypes } from "../types";
-
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGOUT = "LOGOUT";
-export const INIT_AUTH = "INIT_AUTH";
 
 export const loginSuccess = (
   user: UserData,
   token: string
 ): AuthActionTypes => ({
-  type: LOGIN_SUCCESS,
+  type: AUTH_ACTION.LOGIN_SUCCESS,
   payload: { user, token },
 });
 
+export const loginFail = (error: string): AuthActionTypes => ({
+  type: AUTH_ACTION.LOGIN_FAIL,
+  payload: error,
+});
+
 export const logout = (): AuthActionTypes => ({
-  type: LOGOUT,
+  type: AUTH_ACTION.LOGOUT,
 });
 
 export const initialAuth = (): AuthActionTypes => ({
-  type: INIT_AUTH,
+  type: AUTH_ACTION.INIT_AUTH,
 });
