@@ -1,5 +1,6 @@
-import { AuthState } from "./Redux/types";
-import { AuthContextType, FavoriteContextProps, NewFilterProps } from "./types";
+import { getSavedFavorite } from "./Redux/reducers/favoriteReducer";
+import { AuthState, FavoriteState } from "./Redux/types";
+import { NewFilterProps } from "./types";
 
 export const FILTER_OPTIONS = {
   sortOptions: ["Популярности", "Дате выхода", "Рейтингу"],
@@ -17,19 +18,6 @@ export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const MAX_VISIBLE_PAGES = 5;
 
-export const DEFAULT_FAVORITE_CONTEXT: FavoriteContextProps = {
-  favorite: [],
-  toggleFavorite: () => console.warn("this is DEFAULT_FAVORITE_CONTEXT"),
-};
-
-export const DEFAULT_AUTH_CONTEXT: AuthContextType = {
-  user: null,
-  isAuth: false,
-  login: async () => false,
-  logoutHandler: () => {},
-  token: null,
-};
-
 export const INITIAL_FILTERS = {
   sortBy: "",
   yearRange: [1950, new Date().getFullYear()] as [number, number],
@@ -41,4 +29,25 @@ export const INIT_STATE_AUTH_REDUCER: AuthState = {
   user: null,
   token: null,
   isAuth: false,
+};
+
+export const AUTH_ACTION = {
+  LOGIN_REQUEST: "LOGIN_REQUEST",
+  LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  LOGIN_FAIL: "LOGIN_FAIL",
+  LOGOUT: "LOGOUT",
+  INIT_AUTH: "INIT_AUTH",
+} as const;
+
+export const FAVORITE_ACTION = {
+  TOGGLE_FAVORITE_SUCCESS: "TOGGLE_FAVORITE_SUCCESS",
+  TOGGLE_FAVORITE_FAIL: "TOGGLE_FAVORITE_FAIL",
+  CLEAR_JUST_ADDED: "CLEAR_JUST_ADDED",
+  CLEAR_ERROR: "CLEAR_ERROR",
+} as const;
+
+export const INITIAL_STATE_FAVORITE_REDUCER: FavoriteState = {
+  favoriteId: getSavedFavorite(),
+  justAdded: false,
+  error: null,
 };

@@ -7,10 +7,12 @@ import { useNavigate } from "react-router-dom";
 
 export const FavoritePage: React.FC = () => {
   const navigate = useNavigate();
-  const { favorite } = useFavorite();
+  const { favoriteId } = useFavorite();
   const { movies } = useRequestMovies();
 
-  const favoriteMovies = movies.filter((movie) => favorite.includes(movie.id));
+  const favoriteMovies = movies.filter((movie) =>
+    favoriteId.includes(movie.id)
+  );
 
   return (
     <div className={styles.page}>
@@ -18,7 +20,7 @@ export const FavoritePage: React.FC = () => {
       <button onClick={() => navigate(-1)} className={styles.buttonBack}>
         Назад
       </button>
-      {favorite.length > 0 ? (
+      {favoriteId.length > 0 ? (
         <div className={styles.moviesContainer}>
           <div className={styles.moviesList}>
             {favoriteMovies.map((movie) => (

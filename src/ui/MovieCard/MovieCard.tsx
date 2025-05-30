@@ -15,7 +15,7 @@ import { useFavorite } from "../../hooks/useFavorite";
 import { useSnackbarError } from "../../hooks/useSnackbarError";
 
 export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
-  const { favorite, toggleFavorite } = useFavorite();
+  const { favoriteId, toggleFavorite } = useFavorite();
   const { snackbarMessage, handleCloseSnackbar, snackbarOpen } =
     useSnackbarError();
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     [movie.id, toggleFavorite]
   );
 
-  const isFavorite = favorite.includes(movie.id);
+  const isFavorite = favoriteId.includes(movie.id);
 
   return (
     <Card

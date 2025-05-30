@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export interface StateType {
   sortBy: string;
   yearRange: number[];
@@ -36,18 +34,6 @@ export interface UserData {
   id?: number;
   username?: string;
   email?: string;
-}
-
-export type AuthProviderProps = {
-  children: ReactNode;
-};
-
-export interface AuthContextType {
-  user: UserData | null;
-  isAuth: boolean;
-  login: (userData: UserData, token: string) => Promise<boolean>;
-  logoutHandler: () => void;
-  token: string | null;
 }
 
 export interface MovieCardProps {
@@ -94,12 +80,4 @@ export interface useFilteredMoviesProps {
   setCurrentPage: (page: number) => void;
   totalPages: number;
   paginatedMovies: MovieProps[];
-}
-
-export interface FavoriteContextProps {
-  favorite: number[];
-  toggleFavorite: (movieId: number) => void;
-  justAdded?: boolean;
-  error?: string | null;
-  clearError?: () => void;
 }
