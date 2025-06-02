@@ -37,10 +37,11 @@ export interface AuthState {
   user: UserData | null;
   token: string | null;
   isAuth: boolean;
+  error: string;
 }
 
 export interface FavoriteState {
-  favoriteId: number[];
+  favoriteIds: number[];
   justAdded: boolean;
   error: string | null;
 }

@@ -1,15 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../Redux/store/store";
-import { FavoriteActionTypes, FavoriteState } from "../Redux/types";
+import { AppDispatch, RootState } from "../Redux/store/store";
+import { FavoriteState } from "../Redux/types";
 import { useCallback, useEffect } from "react";
-import { ThunkDispatch } from "redux-thunk";
-import { clearError, clearJustAdded } from "../Redux/actions/favoriteActions";
 import { favoriteThunk } from "../Redux/thunks/favoriteThunk";
+import { clearError, clearJustAdded } from "../Redux/reducers/favoriteSlice";
 
 export const useFavorite = () => {
-  const dispatch: ThunkDispatch<RootState, unknown, FavoriteActionTypes> =
-    useDispatch();
-  const { favoriteId, justAdded, error } = useSelector<
+  const dispatch: AppDispatch = useDispatch();
+  const { favoriteIds, justAdded, error } = useSelector<
     RootState,
     FavoriteState
   >((state) => state.favorite);
@@ -37,7 +35,7 @@ export const useFavorite = () => {
   return {
     clearError: handleClearError,
     toggleFavorite: handleToggleFavorite,
-    favoriteId,
+    favoriteIds,
     error,
     justAdded,
   };

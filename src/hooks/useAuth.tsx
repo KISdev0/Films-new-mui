@@ -1,15 +1,13 @@
 import { useCallback } from "react";
 import { UserData } from "../types";
 import { useDispatch, useSelector } from "react-redux";
-import { AuthActionTypes, AuthState } from "../Redux/types";
-import { logout } from "../Redux/actions/authActions";
+import { AuthState } from "../Redux/types";
 import { AppDispatch, RootState } from "../Redux/store/store";
-import { ThunkDispatch } from "redux-thunk";
 import { initAuthThunk, loginThunk } from "../Redux/thunks/authThunk";
+import { logout } from "../Redux/reducers/authSlice";
 
 export const useAuth = () => {
-  const dispatch: ThunkDispatch<RootState, unknown, AuthActionTypes> =
-    useDispatch<AppDispatch>();
+  const dispatch: AppDispatch = useDispatch();
   const { user, token, isAuth } = useSelector<RootState, AuthState>(
     (state) => state.auth
   );
