@@ -1,10 +1,8 @@
-import { ThunkDispatch } from "redux-thunk";
 import {
   toggleFavoriteFail,
   toggleFavoriteSuccess,
-} from "../actions/favoriteActions";
-import { RootState } from "../store/store";
-import { FavoriteActionTypes } from "../types";
+} from "../reducers/favoriteSlice";
+import { AppThunk } from "../store/store";
 
 const savedFavorite = async (favorite: number[]) => {
   try {
@@ -19,21 +17,19 @@ const savedFavorite = async (favorite: number[]) => {
   }
 };
 
-export const favoriteThunk = (movieId: number) => {
-  return async (
-    dispatch: ThunkDispatch<RootState, unknown, FavoriteActionTypes>,
-    getState: () => RootState
-  ) => {
-    const { favoriteId } = getState().favorite;
-    const isAdding = !favoriteId.includes(movieId);
+export const favoriteThunk =
+  (movieId: number): AppThunk =>
+  async (dispatch, getState) => {
+    const { favoriteIds } = getState().favorite;
+    const isAdding = !favoriteIds.includes(movieId);
     const newFavorite = isAdding
-      ? [...favoriteId, movieId]
-      : favoriteId.filter((id) => id !== movieId);
+      ? [...favoriteIds, movieId]
+      : favoriteIds.filter((id) => id !== movieId);
 
     try {
       const success = await savedFavorite(newFavorite);
       if (success) {
-        dispatch(toggleFavoriteSuccess(newFavorite, isAdding));
+        dispatch(toggleFavoriteSuccess({ newFavorite, isAdding }));
       } else {
         dispatch(toggleFavoriteFail("Рандом ошибка для теста"));
       }
@@ -41,4 +37,3 @@ export const favoriteThunk = (movieId: number) => {
       dispatch(toggleFavoriteFail(`Ошибка при сохранении:${err}`));
     }
   };
-};

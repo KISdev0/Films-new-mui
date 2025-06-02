@@ -1,13 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { authReducer } from "../reducers/authReducer";
-import { favoriteReducer } from "../reducers/favoriteReducer";
-import { AuthActionTypes, FavoriteActionTypes } from "../types";
+import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
+import favoriteReducer from "../reducers/favoriteSlice";
+import authReducer from "../reducers/authSlice";
 
 export const store = configureStore({
   reducer: {
-    auth: (state, action) => authReducer(state, action as AuthActionTypes),
-    favorite: (state, action) =>
-      favoriteReducer(state, action as FavoriteActionTypes),
+    auth: authReducer,
+    favorite: favoriteReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -18,3 +16,4 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>;

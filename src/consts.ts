@@ -1,5 +1,4 @@
-import { getSavedFavorite } from "./Redux/reducers/favoriteReducer";
-import { AuthState, FavoriteState } from "./Redux/types";
+import { AuthState } from "./Redux/types";
 import { NewFilterProps } from "./types";
 
 export const FILTER_OPTIONS = {
@@ -29,6 +28,7 @@ export const INIT_STATE_AUTH_REDUCER: AuthState = {
   user: null,
   token: null,
   isAuth: false,
+  error: "",
 };
 
 export const AUTH_ACTION = {
@@ -45,9 +45,3 @@ export const FAVORITE_ACTION = {
   CLEAR_JUST_ADDED: "CLEAR_JUST_ADDED",
   CLEAR_ERROR: "CLEAR_ERROR",
 } as const;
-
-export const INITIAL_STATE_FAVORITE_REDUCER: FavoriteState = {
-  favoriteId: getSavedFavorite(),
-  justAdded: false,
-  error: null,
-};
